@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Unidad Honduras</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f7f6;
+        }
+        .card {
+            border-radius: 15px;
+            border: none;
+        }
+        .badge-numero {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .card-radio {
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .card-radio:hover {
+            border-color: #198754;
+            background-color: #f8f9fa;
+        }
+        .form-check-input:checked + .form-check-label {
+            color: #198754;
+        }
+        #contenedor-foto {
+            border: 2px dashed #0d6efd;
+            background-color: #f8f9fa;
+            transition: all 0.3s;
+        }
+        #contenedor-foto:hover,
+        #contenedor-foto:focus {
+            background-color: #e2e6ea;
+            outline: 2px solid #0d6efd;
+            outline-offset: 2px;
+        }
+        #video, #preview {
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        #h1{
+          background-color: #0d6efd;  
+        }
+    </style>
+</head>
+<body>
+
+<div class="container my-5">
+    <div class="card shadow-sm mx-auto" style="max-width: 850px;">
+        <div class="card-body p-4 p-md-5">
+<h1>Colaboración economica al interno de Honduras con fines, Desarrollo Social</h1>
+            <!-- Encabezado -->
+            <div class="d-flex justify-content-between align-items-start mb-4">
+                <div>
+                    <small class="text-primary fw-bold tracking-wide">TU REGISTRO</small>
+                    <h1 class="h2 fw-bold mb-1">Unimos Fuerzas para cambiar nuestro destino</h1>
+                    <p class="text-muted mb-0">Los campos marcados con * son obligatorios.</p>
+                </div>
+                <span class="badge border border-primary text-primary rounded-pill px-3 py-2 fs-6">
+                    <i class="1f234"></i> Sociales
+                </span>
+            </div>
+
+            <!-- Mensajes Flash (Errores o Éxito) -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="/" enctype="multipart/form-data" novalidate>
+
+                <!-- ================= SECCIÓN 01: DATOS PERSONALES ================= -->
+                <div class="d-flex align-items-center mb-3 mt-4">
+                    <span class="badge-numero rounded-circle me-3">01</span>
+                    <div>
+                        <h5 class="mb-0 fw-bold">Datos personales</h5>
+                        <small class="text-muted">Información para identificar tu registro.</small>
+                    </div>
+                </div>
+                <hr class="text-muted opacity-25 mb-4">
+
+                <div class="row mb-3">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <label class="form-label fw-bold" for="nombre">Nombre *</label>
+                        <input type="text" class="form-control form-control-lg" id="nombre" name="nombre"
+                               placeholder="Tu nombre" autocomplete="given-name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold" for="apellidos">Apellidos *</label>
+                        <input type="text" class="form-control form-control-lg" id="apellidos" name="apellidos"
+                               placeholder="Tus apellidos" autocomplete="family-name" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <label class="form-label fw-bold" for="sexo">Sexo *</label>
+                        <select class="form-select form-select-lg" id="sexo" name="sexo" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>
+                            <option value="Otro">Prefiero no decirlo</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold" for="fecha_nacimiento">Fecha de nacimiento *</label>
+                        <input type="date" class="form-control form-control-lg" id="fecha_nacimiento"
+                               name="fecha_nacimiento" required>
+                        <small class="text-muted">Debes ser mayor de 18 años para registrarte.</small>
+                    </div>
+                </div>
+
+                <!-- ================= SECCIÓN 02: CONTACTO ================= -->
+                <div class="d-flex align-items-center mb-3 mt-5">
+                    <span class="badge-numero rounded-circle me-3">02</span>
+                    <div>
+                        <h5 class="mb-0 fw-bold">Contacto</h5>
+                        <small class="text-muted">Usaremos estos datos para comunicarnos contigo.</small>
+                    </div>
+                </div>
+                <hr class="text-muted opacity-25 mb-4">
+
+                <div class="row mb-3">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <label class="form-label fw-bold" for="correo">Correo electrónico *</label>
+                        <input type="email" class="form-control form-control-lg" id="correo" name="correo"
+                               placeholder="nombre@ejemplo.com" autocomplete="email" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold" for="telefono">Número de teléfono *</label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text bg-white">HN +504</span>
+                            <input type="tel" class="form-control" id="telefono" name="telefono"
+                                   placeholder="9043-4332" autocomplete="tel" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <label class="form-label fw-bold" for="password">Contraseña *</label>
+                        <input type="password" class="form-control form-control-lg" id="password" name="password"
+                               placeholder="Crea una contraseña segura" autocomplete="new-password"
+                               required minlength="6">
+                        <small class="text-muted">Mínimo 6 caracteres.</small>
+                    </div>
+                </div>
+
+                <!-- ================= SECCIÓN 03: UBICACIÓN ================= -->
+                <div class="d-flex align-items-center mb-3 mt-5">
+                    <span class="badge-numero rounded-circle me-3">03</span>
+                    <div>
+                        <h5 class="mb-0 fw-bold">Tu ubicación</h5>
+                        <small class="text-muted">Elige tu país de residencia; las listas se actualizan según lo que selecciones.</small>
+                    </div>
+                </div>
+                <hr class="text-muted opacity-25 mb-4">
+
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <label class="form-label fw-bold" for="pais">País de residencia *</label>
+                        <select class="form-select form-select-lg" id="pais" name="pais" required>
+                            <option value="Honduras" selected>Honduras</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <label class="form-label fw-bold" for="departamento">Departamento *</label>
+                        <select class="form-select form-select-lg" id="departamento" name="departamento"
+                                required onchange="cargarMunicipios()">
+                            <option value="">Selecciona tu departamento</option>
+                            <!-- Se llena con JS -->
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold" for="municipio">Municipio *</label>
+                        <select class="form-select form-select-lg" id="municipio" name="municipio" required disabled>
+                            <option value="">Selecciona primero un departamento</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold" for="localidad">Localidad *</label>
+                    <input type="text" class="form-control form-control-lg" id="localidad" name="localidad"
+                           placeholder="Colonia, barrio, pueblo, caserío o aldea" required>
+                </div>
+
+                <!-- ================= SECCIÓN 04: PARTICIPACIÓN ================= -->
+                <div class="d-flex align-items-center mb-3 mt-5">
+                    <span class="badge-numero rounded-circle me-3">04</span>
+                    <div>
+                        <h5 class="mb-0 fw-bold">¿Cómo deseas participar?</h5>
+                        <small class="text-muted">Selecciona la opción que mejor representa tu interés.</small>
+                    </div>
+                </div>
+                <hr class="text-muted opacity-25 mb-4">
+
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <label class="card-radio p-3 d-block h-100" for="activo">
+                            <div class="form-check">
+                                <input class="form-check-input mt-1" type="radio" name="tipo_participacion"
+                                       id="activo" value="activo" required>
+                                <label class="form-check-label ms-2" for="activo">
+                                    <strong class="d-block text-dark">✨ Quiero ser miembro activo</strong>
+                                    <small class="text-muted">Deseo participar como coordinador, subcoordinador, patrocinador, colaborador o voluntario.</small>
+                                </label>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="card-radio p-3 d-block h-100" for="seguidor">
+                            <div class="form-check">
+                                <input class="form-check-input mt-1" type="radio" name="tipo_participacion"
+                                       id="seguidor" value="seguidor" required>
+                                <label class="form-check-label ms-2" for="seguidor">
+                                    <strong class="d-block text-dark">🌱 Solo quiero ser seguidor</strong>
+                                    <small class="text-muted">Deseo estar registrado como seguidor del movimiento.</small>
+                                </label>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- ================= SECCIÓN 05: IDENTIFICACIÓN Y FOTO ================= -->
+                <div class="d-flex align-items-center mb-3 mt-5">
+                    <span class="badge-numero rounded-circle me-3">05</span>
+                    <div>
+                        <h5 class="mb-0 fw-bold">Identificación y fotografía</h5>
+                        <small class="text-muted">Completa los datos finales de tu registro.</small>
+                    </div>
+                </div>
+                <hr class="text-muted opacity-25 mb-4">
+
+                <div class="row">
+                    <!-- DNI -->
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label fw-bold" for="dni">Número de identidad (DNI) *</label>
+                        <div class="input-group input-group-lg mb-1">
+                            <span class="input-group-text bg-white">HN</span>
+                            <input type="text" class="form-control" id="dni" name="dni"
+                                   placeholder="0801-1999-12345" required
+                                   pattern="[0-9]{4}-[0-9]{4}-[0-9]{5}"
+                                   title="Formato requerido: 0801-1999-12345">
+                        </div>
+                        <small class="text-muted">Documento: Honduras - DNI de 13 números. Usa únicamente números y guiones.</small>
+                    </div>
+
+                    <!-- FOTO -->
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label fw-bold">Fotografía de tu rostro *</label>
+
+                        <!-- Input oculto que enviará el archivo al servidor -->
+                        <input type="file" name="foto" id="foto_input" accept="image/*"
+                               capture="user" style="display: none;" required>
+
+                        <!-- Contenedor visual accesible -->
+                        <div id="contenedor-foto" class="p-3 text-center d-flex flex-column align-items-center justify-content-center"
+                             role="button" tabindex="0" aria-label="Subir o tomar fotografía"
+                             style="height: 160px; cursor: pointer; border-radius: 8px;">
+                            <h3 class="text-primary mb-1">+</h3>
+                            <span class="text-primary fw-bold">Subir o tomar fotografía</span>
+                            <small class="text-muted">JPG, PNG o WebP - máx 5 MB</small>
+                        </div>
+
+                        <!-- Video en vivo -->
+                        <div id="camara-contenedor" style="display: none;">
+                            <video id="video" width="100%" height="160" autoplay playsinline></video>
+                            <button type="button" id="btn-capturar" class="btn btn-success w-100 mt-2 fw-bold">
+                                📸 Capturar Foto
+                            </button>
+                        </div>
+
+                        <!-- Vista previa -->
+                        <div id="preview-contenedor" class="text-center" style="display: none;">
+                            <img id="preview" src="" alt="Vista previa" style="width: 100%; height: 160px; border-radius: 8px; object-fit: cover;">
+                            <button type="button" id="btn-reintentar" class="btn btn-outline-secondary btn-sm w-100 mt-2">
+                                🔄 Tomar otra foto
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Términos -->
+                <div class="form-check mb-4 mt-2">
+                    <input type="checkbox" class="form-check-input" id="terminos" name="terminos" required>
+                    <label class="form-check-label text-muted" for="terminos">
+                        Acepto que <strong>La Nueva Honduras</strong> use mis datos y mi fotografía para gestionar mi registro y participación en el movimiento. *
+                    </label>
+                </div>
+
+                <!-- Botón de Enviar -->
+                <button type="submit" class="btn btn-success btn-lg w-100 fw-bold py-3" style="border-radius: 10px;">
+                    Enviar mi registro →
+                </button>
+                <p class="text-center text-muted mt-3 mb-0">
+                    <small>Tus datos y tu foto se envían de forma segura a la base de datos del movimiento.</small>
+                </p>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="text-center text-muted mt-4">
+        <small>La Nueva Honduras · Registro Honduras</small>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ================= JAVASCRIPT PERSONALIZADO ================= -->
+<script>
+    // ========== 0. VALIDACIÓN DE MAYORÍA DE EDAD ==========
+    (function configurarFechaMaxima() {
+        const inputFecha = document.getElementById('fecha_nacimiento');
+        const hoy = new Date();
+        const maxFecha = new Date(hoy.getFullYear() - 18, hoy.getMonth(), hoy.getDate());
+        // Formato YYYY-MM-DD
+        const yyyy = maxFecha.getFullYear();
+        const mm = String(maxFecha.getMonth() + 1).padStart(2, '0');
+        const dd = String(maxFecha.getDate()).padStart(2, '0');
+        inputFecha.max = `${yyyy}-${mm}-${dd}`;
+    })();
+
+    // ========== 1. DEPARTAMENTOS Y MUNICIPIOS ==========
+    const departamentosHonduras = {
+        "Atlántida": ["La Ceiba", "El Porvenir", "Esparta", "Jutiapa", "La Masica", "San Francisco", "Tela", "Arizona"],
+        "Colón": ["Trujillo", "Balfate", "Iriona", "Limón", "Sabá", "Santa Fe", "Santa Rosa de Aguán", "Sonaguera", "Tocoa", "Bonito Oriental"],
+        "Comayagua": ["Comayagua", "Ajuterique", "El Rosario", "Esquías", "Humuya", "La Libertad", "Lamaní", "La Trinidad", "Lejamaní", "Meámbar", "Minas de Oro", "Ojos de Agua", "San Jerónimo", "San José de Comayagua", "San José del Potrero", "San Luis", "San Sebastián", "Siguatepeque", "Villa de San Antonio", "Las Lajas", "Taulabé"],
+        "Copán": ["Santa Rosa de Copán", "Cabañas", "Concepción", "Dolores", "Dulce Nombre", "El Paraíso", "Florida", "La Jigua", "La Unión", "Nueva Arcadia", "San Agustín", "San Antonio", "San Jerónimo", "San José", "San Juan de Opoa", "San Nicolás", "San Pedro", "Santa Rita", "Trinidad de Copán", "Veracruz", "Corquín"],
+        "Cortés": ["San Pedro Sula", "Choloma", "Omoa", "Pimienta", "Potrerillos", "Puerto Cortés", "San Antonio de Cortés", "San Francisco de Yojoa", "San Manuel", "Santa Cruz de Yojoa", "Villanueva", "La Lima"],
+        "El Paraíso": ["Yuscarán", "Alauca", "Danlí", "El Paraíso", "Güinope", "Jacaleapa", "Liure", "Morocelí", "Oropolí", "Potrerillos", "San Antonio de Flores", "San Lucas", "San Matías", "Soledad", "Teupasenti", "Texiguat", "Vado Ancho", "Yauyupe", "Trojes"],
+        "Francisco Morazán": ["Distrito Central", "Alubarén", "Cedros", "Curarén", "El Porvenir", "Guaimaca", "La Libertad", "La Venta", "Lepaterique", "Maraita", "Marale", "Nueva Armenia", "Ojojona", "Orica", "Reitoca", "Sabanagrande", "San Antonio de Oriente", "San Buenaventura", "San Ignacio", "San Juan de Flores", "San Miguelito", "Santa Ana", "Santa Lucía", "Talanga", "Tatumbla", "Valle de Ángeles", "Villa de San Francisco", "Vallecillo"],
+        "Gracias a Dios": ["Puerto Lempira", "Brus Laguna", "Ahuas", "Juan Francisco Bulnes", "Villeda Morales", "Wampusirpi"],
+        "Intibucá": ["La Esperanza", "Camasca", "Colomoncagua", "Concepción", "Dolores", "Intibucá", "Jesús de Otoro", "Magdalena", "Masaguara", "San Antonio", "San Isidro", "San Juan", "San Marcos de la Sierra", "San Miguel Guancapla", "Santa Lucía", "Yamaranguila", "San Francisco de Opalaca"],
+        "Islas de la Bahía": ["Roatán", "Guanaja", "José Santos Guardiola", "Utila"],
+        "La Paz": ["La Paz", "Aguanqueterique", "Cabañas", "Cane", "Chinacla", "Guajiquiro", "Lauterique", "Marcala", "Mercedes de Oriente", "Opatoro", "San Antonio del Norte", "San José", "San Juan", "San Pedro de Tutule", "Santa Ana", "Santa Elena", "Santa María", "Santiago de Puringla", "Yarula"],
+        "Lempira": ["Gracias", "Belén", "Candelaria", "Caiquín", "Cololaca", "Erandique", "Gualcince", "Guarita", "La Campa", "La Iguala", "Las Flores", "La Unión", "La Virtud", "Lepaera", "Mapulaca", "Piraera", "San Andrés", "San Francisco", "San Juan Guarita", "San Manuel Colohete", "San Rafael", "San Sebastián", "Santa Cruz", "Talgua", "Tambla", "Tomalá", "Valladolid", "Virginia", "San Marcos de Caiquín"],
+        "Ocotepeque": ["Ocotepeque", "Belén Gualcho", "Concepción", "Dolores Merendón", "Fraternidad", "La Encarnación", "La Labor", "Lucerna", "Mercedes", "San Fernando", "San Francisco del Valle", "San Jorge", "San Marcos", "Santa Fe", "Sensenti", "Sinuapa"],
+        "Olancho": ["Juticalpa", "Campamento", "Catacamas", "Concordia", "Dulce Nombre de Culmí", "El Rosario", "Esquipulas del Norte", "Gualaco", "Guarizama", "Guata", "Guayape", "Jano", "La Unión", "Mangulile", "Manto", "Patuca", "Salamá", "San Esteban", "San Francisco de Becerra", "San Francisco de La Paz", "Santa María del Real", "Silca", "Yocón"],
+        "Santa Bárbara": ["Santa Bárbara", "Arada", "Atima", "Azacualpa", "Ceguaca", "Concepción del Norte", "Concepción del Sur", "Chinda", "El Níspero", "Gualala", "Ilama", "Las Vegas", "Macuelizo", "Naranjito", "Nueva Frontera", "Nuevo Celilac", "Petoa", "Protección", "Quimistán", "San Francisco de Ojuera", "San José de Colinas", "San Luis", "San Marcos", "San Nicolás", "San Pedro Zacapa", "Santa Rita", "San Vicente Centenario", "Trinidad"],
+        "Valle": ["Nacaome", "Alianza", "Amapala", "Aramecina", "Caridad", "Goascorán", "Langue", "San Francisco de Coray", "San Lorenzo"],
+        "Yoro": ["Yoro", "Arenal", "El Negrito", "El Progreso", "Jocón", "Morazán", "Olanchito", "Santa Rita", "Sulaco", "Victoria", "Yorito"]
+    };
+
+    const selectDepto = document.getElementById('departamento');
+    const selectMuni = document.getElementById('municipio');
+
+    // Llenar departamentos
+    Object.keys(departamentosHonduras).sort().forEach(depto => {
+        const option = document.createElement('option');
+        option.value = depto;
+        option.text = depto;
+        selectDepto.add(option);
+    });
+
+    function cargarMunicipios() {
+        selectMuni.innerHTML = '<option value="">Selecciona un municipio</option>';
+        const deptoSeleccionado = selectDepto.value;
+
+        if (deptoSeleccionado && departamentosHonduras[deptoSeleccionado]) {
+            selectMuni.disabled = false;
+            departamentosHonduras[deptoSeleccionado]
+                .slice()
+                .sort()
+                .forEach(muni => {
+                    const option = document.createElement('option');
+                    option.value = muni;
+                    option.text = muni;
+                    selectMuni.add(option);
+                });
+        } else {
+            selectMuni.disabled = true;
+            selectMuni.innerHTML = '<option value="">Selecciona primero un departamento</option>';
+        }
+    }
+    // Exponer globalmente por si el onchange lo requiere
+    window.cargarMunicipios = cargarMunicipios;
+
+    // ========== 2. CÁMARA Y FOTO ==========
+    const contenedorFoto = document.getElementById('contenedor-foto');
+    const camaraContenedor = document.getElementById('camara-contenedor');
+    const previewContenedor = document.getElementById('preview-contenedor');
+
+    const video = document.getElementById('video');
+    const btnCapturar = document.getElementById('btn-capturar');
+    const btnReintentar = document.getElementById('btn-reintentar');
+    const preview = document.getElementById('preview');
+    const fotoInput = document.getElementById('foto_input');
+
+    let stream = null;
+
+    async function abrirCamara() {
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: "user", width: { ideal: 640 }, height: { ideal: 480 } },
+                audio: false
+            });
+            video.srcObject = stream;
+            contenedorFoto.style.display = 'none';
+            previewContenedor.style.display = 'none';
+            camaraContenedor.style.display = 'block';
+        } catch (err) {
+            console.error("Error al acceder a la cámara:", err);
+            alert("No se pudo acceder a la cámara. Selecciona una foto de tu galería.");
+            contenedorFoto.style.display = 'none';
+            fotoInput.style.display = 'block';
+            fotoInput.click();
+        }
+    }
+
+    // Clic y teclado (accesibilidad)
+    contenedorFoto.addEventListener('click', abrirCamara);
+    contenedorFoto.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            abrirCamara();
+        }
+    });
+
+    // Capturar fotograma
+    btnCapturar.addEventListener('click', () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        const dataURL = canvas.toDataURL('image/jpeg', 0.85);
+        preview.src = dataURL;
+
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+            stream = null;
+        }
+
+        camaraContenedor.style.display = 'none';
+        previewContenedor.style.display = 'block';
+
+        canvas.toBlob((blob) => {
+            const file = new File([blob], "foto_capturada.jpg", { type: "image/jpeg" });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            fotoInput.files = dataTransfer.files;
+            fotoInput.style.display = 'none';
+        }, 'image/jpeg', 0.85);
+    });
+
+    // Reintentar
+    btnReintentar.addEventListener('click', () => {
+        fotoInput.value = '';
+        fotoInput.style.display = 'none';
+        preview.src = '';
+        previewContenedor.style.display = 'none';
+        contenedorFoto.style.display = 'flex';
+    });
+
+    // ========== 3. LIMPIEZA DEL STREAM ==========
+    window.addEventListener('beforeunload', () => {
+        if (stream) stream.getTracks().forEach(t => t.stop());
+    });
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden && stream) {
+            stream.getTracks().forEach(t => t.stop());
+            stream = null;
+        }
+    });
+</script>
+
+</body>
+</html>
