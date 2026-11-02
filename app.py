@@ -183,6 +183,8 @@ def carnet_qr(token):
     buf.seek(0)
     return send_file(buf, mimetype='image/png')
 
-    if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
+  if __name__ == '__main__':
+      port = int(os.environ.get('PORT', 5000)) # ¡Con 4 espacios al inicio!
+      app.run(host='0.0.0.0', port=port)
+
     app.run(host='0.0.0.0', port=port)
