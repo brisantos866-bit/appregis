@@ -1,4 +1,4 @@
-# Registro y Carnet Digital - La Nueva Honduras
+# Registro y Carnet Digital - Solo para Honduras
 
 Este es un sistema web desarrollado en Flask (Python) para el registro de colaboradores y la generación automática de un **Carnet Digital** con código QR.
 
