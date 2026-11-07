@@ -182,8 +182,12 @@ def carnet_qr(token):
     img.save(buf, format='PNG')
     buf.seek(0)
     return send_file(buf, mimetype='image/png')
+
+# ===== NUEVA RUTA PARA EL CV =====
+@app.route('/cv')
+def mostrar_cv():
+    return render_template('cv.html')
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
- 
-
