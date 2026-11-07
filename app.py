@@ -58,6 +58,18 @@ def init_db():
         cursor.execute("ALTER TABLE registros ADD COLUMN token TEXT")
     if 'activo' not in columnas:
         cursor.execute("ALTER TABLE registros ADD COLUMN activo INTEGER DEFAULT 1")
+    
+    # NUEVAS COLUMNAS PARA EL CV
+    if 'profesion' not in columnas:
+        cursor.execute("ALTER TABLE registros ADD COLUMN profesion TEXT")
+    if 'perfil' not in columnas:
+        cursor.execute("ALTER TABLE registros ADD COLUMN perfil TEXT")
+    if 'experiencia' not in columnas:
+        cursor.execute("ALTER TABLE registros ADD COLUMN experiencia TEXT")
+    if 'educacion' not in columnas:
+        cursor.execute("ALTER TABLE registros ADD COLUMN educacion TEXT")
+    if 'habilidades' not in columnas:
+        cursor.execute("ALTER TABLE registros ADD COLUMN habilidades TEXT")
 
     # Generar tokens para registros existentes (si hay)
     cursor.execute("SELECT id FROM registros WHERE token IS NULL")
@@ -183,10 +195,46 @@ def carnet_qr(token):
     buf.seek(0)
     return send_file(buf, mimetype='image/png')
 
-# ===== NUEVA RUTA PARA EL CV =====
-@app.route('/cv')
-def mostrar_cv():
-    return render_template('cv.html')
+
+# ================= NUEVAS RUTAS PARA EL CURRÍCULUM VITAE =================
+@app.route('/cv/<token>')
+def ver_cv(token):
+    conn = get_db()
+    r = conn.execute("SELECT * FROM registros WHERE token = ? AND activo = 1", (token,)).fetchone()
+    conn.close()
+    if not r:
+        abort(404)
+    return render_template('cv.html', r=r)
+
+@app.route('/cv/<token>/editar', methods=['GET', 'POST'])
+def editar_cv(token):
+    conn = get_db()
+    r = conn.execute("SELECT * FROM registros WHERE token = ? AND activo = 1", (token,)).fetchone()
+    
+    if not r:
+        conn.close()
+        abort(404)
+
+    if request.method == 'POST':
+        profesion = request.form['profesion']
+        perfil = request.form['perfil']
+        experiencia = request.form['experiencia']
+        educacion = request.form['educacion']
+        habilidades = request.form['habilidades']
+
+        conn.execute('''
+            UPDATE registros 
+            SET profesion = ?, perfil = ?, experiencia = ?, educacion = ?, habilidades = ?
+            WHERE token = ?
+        ''', (profesion, perfil, experiencia, educacion, habilidades, token))
+        conn.commit()
+        conn.close()
+        flash('¡Currículum actualizado con éxito!', 'success')
+        return redirect(url_for('ver_cv', token=token))
+
+    conn.close()
+    return render_template('editar_cv.html', r=r)
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
